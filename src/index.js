@@ -3,6 +3,7 @@ const http = require('http')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
 const path = require('path')
+const { generateMessage, generateLocationMessage } = require('./utils/messages')
 
 const app = express()
 
@@ -16,13 +17,14 @@ app.use(express.static(publicDirPath))
 
 io.on('connection', (socket) => {
     console.log('New web socket connection.')
-    socket.emit('message', 'Welcome!')
+
+    socket.emit('message', generateMessage('Welcome!'))
 
     // Broadcast to all users except the one that joined.
-    socket.broadcast.emit('userConnected', 'A new user has joined!')
+    socket.broadcast.emit('message', generateMessage('A new user has joined!'))
 
     socket.on('disconnect', () => {
-        io.emit('userDisconnected', 'User has disconnected.')
+        io.emit('message', generateMessage('User has disconnected.'))
     })
 
     socket.on('userMessage', (message, callback) => {
@@ -32,14 +34,14 @@ io.on('connection', (socket) => {
             return callback('Profanity is not allowed!')
         }
 
-        io.emit('message', message)
+        io.emit('message', generateMessage(message))
 
         // Acknowledgement
         callback()
     })
 
     socket.on('sendLocation', (coords, callback) => {
-        io.emit('locationMessage', `https://google.com/maps?q=${coords.lat},${coords.lon}`)
+        io.emit('locationMessage', generateLocationMessage(`https://google.com/maps?q=${coords.lat},${coords.lon}`))
         callback()
     })
 

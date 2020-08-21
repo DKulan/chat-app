@@ -54,18 +54,11 @@ $sendLocationButton.addEventListener('click', (e) => {
     })
 })
 
-socket.on('userConnected', (userConnected) => {
-    console.log(userConnected)
-})
-
-socket.on('userDisconnected', (userDisconnected) => {
-    console.log(userDisconnected)
-})
-
 // General message event (welcome, disconnect, user messages...etc)
 socket.on('message', (message) => {
     const html = Mustache.render(messageTemplate, {
-        message
+        message: message.text,
+        createdAt: moment(message.createdAt).format('h:mm a')
     })
     $messages.insertAdjacentHTML('beforeend', html)
 
@@ -74,7 +67,8 @@ socket.on('message', (message) => {
 
 socket.on('locationMessage', (url) => {
     const html = Mustache.render(locationMessageTemplate, {
-        url
+        url: url.url,
+        createdAt: moment(url.createdAt).format('h:mm a')
     })
     $messages.insertAdjacentHTML('beforeend', html)
 

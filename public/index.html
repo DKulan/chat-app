@@ -6,41 +6,62 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chat App</title>
+
+    <link rel="icon" href="./img/favicon.png">
+    <link rel="stylesheet" href="./css/styles.min.css">
 </head>
 <body>
-    <h1>Welcome to the chat app!</h1>
+<div class="chat">
+    <div class="chat__sidebar">
 
-    <div id="messages"></div>
+    </div>
+    <div class="chat__main">
+        <div id="messages" class="chat__messages"></div>
 
-    <form id="message-form">
-        <label>
-            <input type="text" name="message" placeholder="message">
-        </label>
-        <button>Send</button>
-    </form>
-
-    <button id="send-location">Send location</button>
-
-    <script id="message-template" type="text/html">
-        <div>
-            <p>{{message}}</p>
+        <div class="compose">
+            <form id="message-form">
+                <input type="text" name="message" placeholder="Message">
+                <button>Send</button>
+            </form>
+            <button id="send-location">Send location</button>
         </div>
-    </script>
+    </div>
+</div>
 
-    <script id="location-message-template" type="text/html">
-        <div>
-            <a href="{{url}}" target="_blank">{{url}}</a>
-        </div>
-    </script>
+<script id="message-template" type="text/html">
+    <div class="message">
+        <p>
+            <span class="message__name">Some User Name</span>
+            <span class="message__meta">{{createdAt}}</span>
+        </p>
+        <p>{{message}}</p>
+    </div>
+</script>
+
+<script id="location-message-template" type="text/html">
+    <div class="message">
+        <p>
+            <span class="message__name">Some User Name</span>
+            <span class="message__meta">{{createdAt}}</span>
+        </p>
+        <p><a href="{{url}}" target="_blank">My current location</a></p>
+    </div>
+</script>
 
 
-    <!--  third party scripts/apis  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js" integrity="sha512-6AXIWogbKpsHvoZJrJtHpIYES4wP8czSj0zk7ZfwOYS8GWYFNSykwdfapt7yQc4ikZytemBu+QyVObzBHJMwYg==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w==" crossorigin="anonymous"></script>
+<!--  third party scripts/apis  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"
+        integrity="sha512-6AXIWogbKpsHvoZJrJtHpIYES4wP8czSj0zk7ZfwOYS8GWYFNSykwdfapt7yQc4ikZytemBu+QyVObzBHJMwYg=="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js"
+        integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w=="
+        crossorigin="anonymous"></script>
 
-    <!--  socket.io scripts  -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/chat.js"></script>
+<!--  socket.io scripts  -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/chat.js"></script>
 </body>
 </html>
